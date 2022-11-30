@@ -12,6 +12,11 @@ import ProductDisplay from './components/ProductDisplay.vue'
 
 const cart = ref(0);
 
+const details = ref([
+  {id: 1, desc: '50% cotton'}, 
+  {id: 2, desc: '30% wool'}, 
+  {id: 3, desc: '20% polyester'}]);
+
 const removeFromCart = () => {
   if (cart.value >= 1) {
     cart.value -= 1
@@ -30,6 +35,6 @@ const removeFromCart = () => {
       >Remove last item</button>
     </div>
   </div>
-  <ProductDisplay></ProductDisplay>
+  <ProductDisplay :details='details'></ProductDisplay>
 
 </template>

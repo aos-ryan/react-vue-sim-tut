@@ -2,18 +2,20 @@
 import { ref, computed } from 'vue'
 import socksGreenImage from '../assets/images/socks_green.jpeg'
 import socksBlueImage from '../assets/images/socks_blue.jpeg'
+defineProps({
+  details: {
+  type: Array,
+  required: true
+  }
+});
 
 const product = ref('Socks');
 const selectedVariant = ref(0);
 const brand = ref('Kidd Classic')
 
 
-const details = ref([
-  {id: 1, desc: '50% cotton'}, 
-  {id: 2, desc: '30% wool'}, 
-  {id: 3, desc: '20% polyester'}]);
 
-  const sizes = ref([
+const sizes = ref([
   { id: 1, desc: 'small'}, 
   { id: 2, desc: 'medium'}, 
   { id: 3, desc: 'large'}]);
