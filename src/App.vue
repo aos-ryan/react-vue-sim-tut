@@ -12,7 +12,6 @@ import socksBlueImage from './assets/images/socks_blue.jpeg'
 
 const product = ref('Socks');
 const selectedVariant = ref(0);
-const onSale = ref(true);
 const brand = ref('Kidd Classic')
 
 
@@ -27,8 +26,8 @@ const details = ref([
   { id: 3, desc: 'large'}]);
 
 const variants = ref([
-  { id: 2234, colour: 'green', image: socksGreenImage, quantity: 0},
-  { id: 2235, colour: 'blue', image: socksBlueImage, quantity: 50}
+  { id: 2234, colour: 'green', image: socksGreenImage, quantity: 0, onSale: false},
+  { id: 2235, colour: 'blue', image: socksBlueImage, quantity: 50, onSale: true}
 ]);
 
 const cart = ref(0);
@@ -44,6 +43,9 @@ const updateVariant = (index) => {
 };
 
 const title = computed(() => {
+  if (onSale.value) {
+    return brand.value + ' ' + product.value + ' -  On Sale!'
+  }
   return brand.value + ' ' + product.value
 });
 
@@ -53,6 +55,10 @@ const image = computed(() => {
 
 const inStock = computed(() => {
   return variants.value[selectedVariant.value].quantity
+});
+
+const onSale = computed(() => {
+  return variants.value[selectedVariant.value].onSale 
 });
 
 </script>
@@ -77,7 +83,6 @@ const inStock = computed(() => {
           <h1>{{ title }}</h1>
           <p v-if="inStock">In Stock</p>
           <p v-else>Out of Stock</p>
-          <p v-if="onSale">On Sale!</p>
           <ul>
             <li 
             v-for="detail in details"
