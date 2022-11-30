@@ -11,7 +11,7 @@ const useChangeWithDelay = function(state, newVal, delay) {
 };
 const product = ref('Socks');
 const image = ref(socksGreenImage);
-const inStock = ref(true);
+const inStock = ref(false);
 const onSale = ref(true);
 
 const details = ref([
@@ -57,7 +57,7 @@ const updateImage = (variantImage) => {
       <div class="product-container">
         <div class="product-image">
           <!-- <img v-bind:src="image"> longform version -->
-          <img :src="image">
+          <img :class="{ 'out-of-stock-img': !inStock }" :src="image">
         </div>
         <div class="product-info">
           <h1>{{ product }}</h1>
