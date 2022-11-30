@@ -1,18 +1,20 @@
 <script setup>
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 import socksGreenImage from './assets/images/socks_green.jpeg'
 import socksBlueImage from './assets/images/socks_blue.jpeg'
 
 // example of a react custom "hook" done in vue
-const useChangeWithDelay = function(state, newVal, delay) {
-  setTimeout(() => {
-    state.value = newVal
-  }, delay)
-};
+// const useChangeWithDelay = function(state, newVal, delay) {
+//   setTimeout(() => {
+//     state.value = newVal
+//   }, delay)
+// };
+
 const product = ref('Socks');
-const image = ref(socksGreenImage);
-const inStock = ref(false);
+const selectedVariant = ref(0);
 const onSale = ref(true);
+const brand = ref('Kidd Classic')
+
 
 const details = ref([
   {id: 1, desc: '50% cotton'}, 
@@ -25,8 +27,8 @@ const details = ref([
   { id: 3, desc: 'large'}]);
 
 const variants = ref([
-  { id: 2234, colour: 'green', image: socksGreenImage},
-  { id: 2235, colour: 'blue', image: socksBlueImage}
+  { id: 2234, colour: 'green', image: socksGreenImage, quantity: 0},
+  { id: 2235, colour: 'blue', image: socksBlueImage, quantity: 50}
 ]);
 
 const cart = ref(0);
@@ -37,9 +39,21 @@ const removeFromCart = () => {
   }
 };
 
-const updateImage = (variantImage) => {
-  image.value = variantImage
+const updateVariant = (index) => {
+  selectedVariant.value = index
 };
+
+const title = computed(() => {
+  return brand.value + ' ' + product.value
+});
+
+const image = computed(() => {
+  return variants.value[selectedVariant.value].image
+});
+
+const inStock = computed(() => {
+  return variants.value[selectedVariant.value].quantity
+});
 
 </script>
 
@@ -60,7 +74,7 @@ const updateImage = (variantImage) => {
           <img :class="{ 'out-of-stock-img': !inStock }" :src="image">
         </div>
         <div class="product-info">
-          <h1>{{ product }}</h1>
+          <h1>{{ title }}</h1>
           <p v-if="inStock">In Stock</p>
           <p v-else>Out of Stock</p>
           <p v-if="onSale">On Sale!</p>
@@ -77,9 +91,9 @@ const updateImage = (variantImage) => {
             >{{ size.desc }}</li>
           </ul>
           <div 
-          v-for="variant in variants" 
+          v-for="(variant, index) in variants" 
           :key="variant.id" 
-          @mouseover="updateImage(variant.image)"
+          @mouseover="updateVariant(index)"
           class="colour-circle"
           :style="{ backgroundColor: variant.colour}"
           >
