@@ -23,6 +23,8 @@ const removeFromCart = () => {
   }
 };
 
+const addToCart = () => cart.value += 1;
+
 </script>
 
 <template>
@@ -35,6 +37,6 @@ const removeFromCart = () => {
       >Remove last item</button>
     </div>
   </div>
-  <ProductDisplay :details='details'></ProductDisplay>
+  <ProductDisplay :details='details' @add-to-cart="addToCart"></ProductDisplay>
 
 </template>

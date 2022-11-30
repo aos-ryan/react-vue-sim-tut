@@ -6,7 +6,7 @@ defineProps({
   details: {
   type: Array,
   required: true
-  }
+  },
 });
 
 const product = ref('Socks');
@@ -25,8 +25,8 @@ const variants = ref([
   { id: 2235, colour: 'blue', image: socksBlueImage, quantity: 50, onSale: true}
 ]);
 
-const cart = ref(0);
-const addToCart = () => cart.value += 1
+
+// const addToCart = () => cart.value += 1
 
 const updateVariant = (index) => {
   selectedVariant.value = index
@@ -88,7 +88,7 @@ const onSale = computed(() => {
         <button 
         class="button" 
         :class="{ disabledButton: !inStock }"
-        v-on:click="addToCart"
+        @click="$emit('add-to-cart')"
         >Add to Cart</button>
       </div>
     </div>
