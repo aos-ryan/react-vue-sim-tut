@@ -2,6 +2,9 @@
 import { ref, computed } from 'vue'
 import socksGreenImage from '../assets/images/socks_green.jpeg'
 import socksBlueImage from '../assets/images/socks_blue.jpeg'
+import ReviewForm from './ReviewForm.vue';
+import ReviewList from './ReviewList.vue';
+
 defineProps({
   details: {
   type: Array,
@@ -9,11 +12,13 @@ defineProps({
   },
 });
 
+const emit = defineEmits(['add-to-cart']);
+
 const product = ref('Socks');
 const selectedVariant = ref(0);
 const brand = ref('Kidd Classic')
 
-
+const reviews = ref([]);
 
 const sizes = ref([
   { id: 1, desc: 'small'}, 
@@ -30,6 +35,10 @@ const variants = ref([
 
 const updateVariant = (index) => {
   selectedVariant.value = index
+};
+
+const addReview = (review) => {
+  reviews.value.push(review)
 };
 
 const title = computed(() => {
@@ -88,8 +97,10 @@ const onSale = computed(() => {
         <button 
         class="button" 
         :class="{ disabledButton: !inStock }"
-        @click="$emit('add-to-cart', variants[selectedVariant].id)"
+        @click="emit('add-to-cart', variants[selectedVariant].id)"
         >Add to Cart</button>
       </div>
     </div>
+    <ReviewList v-if="reviews.length" :reviews="reviews"></ReviewList>
+    <ReviewForm @review-submitted="addReview"></ReviewForm>
 </template>
