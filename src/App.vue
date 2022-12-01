@@ -10,7 +10,7 @@ import ProductDisplay from './components/ProductDisplay.vue'
 //   }, delay)
 // };
 
-const cart = ref(0);
+const cart = ref([]);
 
 const details = ref([
   {id: 1, desc: '50% cotton'}, 
@@ -18,18 +18,21 @@ const details = ref([
   {id: 3, desc: '20% polyester'}]);
 
 const removeFromCart = () => {
-  if (cart.value >= 1) {
-    cart.value -= 1
+  if (cart.value.length >= 1) {
+    cart.value.pop();
   }
 };
 
-const addToCart = () => cart.value += 1;
+const addToCart = function(id) {
+  // console.log(id);
+  cart.value.push(id);
+};
 
 </script>
 
 <template>
   <div class="nav-bar"></div>
-  <div class="cart">Cart ({{ cart }})
+  <div class="cart">Cart ({{ cart.length }})
     <div class="remove-cart">
       <button 
       class="remove-button"

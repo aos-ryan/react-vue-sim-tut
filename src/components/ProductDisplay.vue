@@ -88,7 +88,7 @@ const onSale = computed(() => {
         <button 
         class="button" 
         :class="{ disabledButton: !inStock }"
-        @click="$emit('add-to-cart')"
+        @click="$emit('add-to-cart', variants[selectedVariant].id)"
         >Add to Cart</button>
       </div>
     </div>
