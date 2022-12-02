@@ -16,7 +16,7 @@ const emit = defineEmits(['add-to-cart']);
 
 const product = ref('Socks');
 const selectedVariant = ref(0);
-const brand = ref('Kidd Classic')
+const brand = ref('Kidd')
 
 const reviews = ref([]);
 
