@@ -30,9 +30,6 @@ const variants = ref([
   { id: 2235, colour: 'blue', image: socksBlueImage, quantity: 50, onSale: true}
 ]);
 
-
-// const addToCart = () => cart.value += 1
-
 const updateVariant = (index) => {
   selectedVariant.value = index
 };
